@@ -1,0 +1,160 @@
+openapi: 3.0.3
+info:
+  title: freerider.de APIs
+  description: freerider.de application APIs
+  contact:
+    name: Sofya Murzakova
+    email: s51006@bnt-berlin.de
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080
+    description: Inferred Url
+tags:
+  - name: customers-controller
+    description: Customers Controller
+  - name: service-controller
+    description: Service Controller
+paths:
+  /api/v1/customers:
+    get:
+      tags:
+        - customers-controller
+      summary: Return all customers from repository.
+      description: Return all customers from repository.
+      operationId: getCustomersUsingGET
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+        '400':
+          description: Bad Request
+        '404':
+          description: Not Found
+    put:
+      tags:
+        - customers-controller
+      summary: Update existing customers in repository.
+      description: Update existing customers in repository.
+      operationId: putCustomersUsingPUT
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                additionalProperties:
+                  type: object
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  type: object
+        '202':
+          description: Accepted
+        '400':
+          description: Bad Request
+        '404':
+          description: Not Found
+    post:
+      tags:
+        - customers-controller
+      summary: Add new customers to repository.
+      description: Add new customers to repository.
+      operationId: postCustomersUsingPOST
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                additionalProperties:
+                  type: object
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  type: object
+        '201':
+          description: Created
+        '400':
+          description: Bad Request
+        '409':
+          description: Conflict
+  /api/v1/customers/{id}:
+    get:
+      tags:
+        - customers-controller
+      summary: Return customer with {id} from repository.
+      description: Return customer with {id} from repository.
+      operationId: getCustomerUsingGET
+      parameters:
+        - name: id
+          in: path
+          description: Customer id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad Request
+        '404':
+          description: Not Found
+    delete:
+      tags:
+        - customers-controller
+      summary: Delete customer by its id from repository.
+      description: Delete customer by its id from repository.
+      operationId: deleteCustomerUsingDELETE
+      parameters:
+        - name: id
+          in: path
+          description: Customer id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+        '202':
+          description: Accepted
+        '404':
+          description: Not Found
+  /server/stop:
+    get:
+      tags:
+        - service-controller
+      summary: stop
+      operationId: stopUsingGET
+      responses:
+        '200':
+          description: OK
+components: {}
